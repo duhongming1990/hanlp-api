@@ -84,7 +84,7 @@ public class TokenizerTest {
     @Test
     @Order(7)
     @DisplayName("7.极速词典分词")
-    public void test() {
+    public void testSpeedTokenizer() {
         String text = "江西鄱阳湖干枯，中国最大淡水湖变成大草原";
         System.out.println(SpeedTokenizer.segment(text));
         long start = System.currentTimeMillis();
@@ -94,5 +94,16 @@ public class TokenizerTest {
         }
         double costTime = (System.currentTimeMillis() - start) / (double) 1000;
         System.out.printf("分词速度：%.2f字每秒", text.length() * pressure / costTime);
+    }
+
+    @Test
+    @DisplayName("")
+    public void test() {
+        String text = "我的爱就是爱自然语言处理";
+        Segment segment = HanLP.newSegment();
+
+        System.out.println("未标注：" + segment.seg(text));
+        segment.enablePartOfSpeechTagging(true);
+        System.out.println("标注后：" + segment.seg(text));
     }
 }

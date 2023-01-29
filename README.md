@@ -2,6 +2,10 @@
 <img src="https://img.shields.io/badge/Spring%20Boot-2.4.13-blue" alt="Downloads"/>
 <img src="https://img.shields.io/badge/SpringCloudFunction-3.2.8-blue" alt="Downloads"/>
 
+# 项目地址
+
+https://github.com/hankcs/HanLP/tree/1.x
+
 # Swagger地址
 
 http://localhost:8080/swagger-ui
