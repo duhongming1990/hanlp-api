@@ -2,6 +2,7 @@ package com.github.hanlp.api.controller;
 
 import com.github.hanlp.api.vo.RecognizeNameVO;
 import com.github.hanlp.api.vo.TokenizerCountVO;
+import com.hankcs.hanlp.dictionary.stopword.CoreStopWordDictionary;
 import com.hankcs.hanlp.seg.Segment;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.NotionalTokenizer;
@@ -28,7 +29,8 @@ public class TokenizerController {
     @ApiOperation("命名实体识别")
     @PostMapping("/tokenizer/name")
     public RecognizeNameVO tokenizerName(@ApiParam("目标文档") @RequestBody String document) {
-        final List<Term> terms = segment.seg(document);
+        List<Term> terms = segment.seg(document);
+        terms = terms.stream().filter(term -> !CoreStopWordDictionary.shouldInclude(term)).collect(toList());
         RecognizeNameVO nameEntity = new RecognizeNameVO();
         Set<String> names = terms.stream().filter(term -> term.nature.startsWith("nr")).map(term -> term.word).collect(toSet());
         nameEntity.setNames(names);
