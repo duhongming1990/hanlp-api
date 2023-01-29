@@ -1,4 +1,4 @@
-package com.github.hanlp.api;
+package com.github.hanlp.api.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class NameEntity implements Serializable {
+public class RecognizeNameVO implements Serializable {
     Set<String> names;
     Set<String> places;
     Set<String> organizations;
