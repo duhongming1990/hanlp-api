@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HanLPApplication {
     public static void main(String[] args) {
-        HanLP.Config.enableDebug();
+
         SpringApplication app = new SpringApplication(HanLPApplication.class);
         app.addListeners(new ApplicationContextStartedListener());
         app.run(args);
