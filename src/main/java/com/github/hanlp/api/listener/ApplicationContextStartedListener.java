@@ -9,5 +9,10 @@ public class ApplicationContextStartedListener implements ApplicationListener<Ap
     public void onApplicationEvent(ApplicationStartedEvent event) {
         CustomDictionary.add("跳表");
         CustomDictionary.add("二分查找");
+        CustomDictionary.add("桶排序");
+        CustomDictionary.add("计数排序");
+        CustomDictionary.add("基数排序");
+        CustomDictionary.add("归并排序");
+        CustomDictionary.add("快速排序");
     }
 }

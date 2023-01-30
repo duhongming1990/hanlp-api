@@ -2,6 +2,7 @@ package com.github.hanlp.api.controller;
 
 import com.github.hanlp.api.vo.RecognizeNameVO;
 import com.github.hanlp.api.vo.TokenizerCountVO;
+import com.hankcs.hanlp.dictionary.stopword.CoreStopWordDictionary;
 import com.hankcs.hanlp.seg.Segment;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.NLPTokenizer;
@@ -32,7 +33,9 @@ public class TokenizerController {
         final List<String> sentences = splitSentence(document);
         RecognizeNameVO nameEntity = new RecognizeNameVO();
         for (String sentence : sentences) {
-            List<Term> terms = segment.seg(sentence);
+//            List<Term> terms = segment.seg(sentence);
+            List<Term> terms = NLPTokenizer.segment(sentence);
+            terms = terms.stream().filter(CoreStopWordDictionary::shouldInclude).collect(toList());
             Set<String> names = terms.stream().filter(term -> term.nature.startsWith("nr")).map(term -> term.word).collect(toSet());
             nameEntity.addAllNames(names);
             Set<String> places = terms.stream().filter(term -> term.nature.startsWith("ns")).map(term -> term.word).collect(toSet());

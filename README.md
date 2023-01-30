@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/badge/Version-0.1.0-SNAPSHOT" alt="Downloads"/>
+<img src="https://img.shields.io/badge/Version-0.2.0-SNAPSHOT" alt="Downloads"/>
 <img src="https://img.shields.io/badge/Spring%20Boot-2.4.13-blue" alt="Downloads"/>
 <img src="https://img.shields.io/badge/SpringCloudFunction-3.2.8-blue" alt="Downloads"/>
 
@@ -11,10 +11,11 @@ https://github.com/hankcs/HanLP/tree/1.x
 ## 项目启动
 
 ```
-docker run --name hanlp-api -d -p 8080:8080 registry.cn-hangzhou.aliyuncs.com/duhongming/hanlp-api:0.1.0
+docker run --name hanlp-api -d -p 8080:8080 registry.cn-hangzhou.aliyuncs.com/duhongming/hanlp-api:0.2.0
 ```
 
 ## 项目DEBUG
+
 ```
 hanlp.debug=true
 ```
@@ -50,9 +51,27 @@ curl -X POST "http://localhost:8080/hanlp/api/tokenizer/counts" -H "accept: */*"
 ```
 
 ### 汉字转拼音
+
 ```
 curl -X POST "http://localhost:8080/hanlp/api/convertToPinyin" -H "accept: */*" -H "Content-Type: application/json" -d "重载不是重任"
 ```
+
+## 版本历史
+
+### 0.1.0
+
+    [+] 标准分词+人名、地名、机构名识别接口
+    [+] 摘要、关键词提取
+    [+] 汉字转拼音
+
+### 0.2.0
+
+    [+] 导入数据包data-for-1.7.5.zip
+    [^] NLP分词
+
+### HanLP version
+
+https://github.com/hankcs/HanLP/releases/tag/v1.8.3
 
 ### spring-boot version
 

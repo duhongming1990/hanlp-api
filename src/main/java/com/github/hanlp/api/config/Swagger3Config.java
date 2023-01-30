@@ -50,7 +50,7 @@ public class Swagger3Config {
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder().title("hanlp-api")
                 .description("HanLP API")
-                .version("0.1.0-SNAPSHOT")
+                .version("0.2.0-SNAPSHOT")
                 .build();
     }
 }
