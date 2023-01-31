@@ -1,3 +1,5 @@
+# https://docs.docker.com/engine/reference/builder/
+
 FROM registry.cn-hangzhou.aliyuncs.com/duhongming/alpine-java:8u212_jdk_unlimited_nashorn
 
 # MAINTAINER duhongming

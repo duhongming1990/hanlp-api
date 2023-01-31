@@ -22,7 +22,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableOpenApi
 @EnableKnife4j
 public class Swagger3Config {
-    @Value("${swagger.enable.bsp-diag-service:true}")
+    @Value("${swagger.enable.hanlp-api:true}")
     private Boolean enableSwagger;
 
     @Bean
