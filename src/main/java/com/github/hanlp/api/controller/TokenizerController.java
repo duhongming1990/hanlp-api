@@ -6,7 +6,6 @@ import com.hankcs.hanlp.dictionary.stopword.CoreStopWordDictionary;
 import com.hankcs.hanlp.seg.Segment;
 import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.NLPTokenizer;
-import com.hankcs.hanlp.tokenizer.NotionalTokenizer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,7 +26,7 @@ public class TokenizerController {
     @Resource
     private Segment segment;
 
-    @ApiOperation("命名实体识别")
+    @ApiOperation("命名实体识别 NamedEntityRecognition ner")
     @PostMapping("/tokenizer/name")
     public RecognizeNameVO tokenizerName(@ApiParam("目标文档") @RequestBody String document) {
         final List<String> sentences = splitSentence(document);
@@ -46,11 +45,28 @@ public class TokenizerController {
         return nameEntity;
     }
 
-    @ApiOperation("分词计数")
+    @ApiOperation("分词计数 词性标注 Part-of-speech Tagging pos")
     @PostMapping("/tokenizer/counts")
     public List<TokenizerCountVO> tokenizerCounts(@ApiParam("目标文档") @RequestBody String document) {
-        final List<Term> terms = NotionalTokenizer.segment(document);
-        final Map<String, Integer> wordCountMap = terms.stream().collect(groupingBy(term -> term.word + "|" + term.nature, collectingAndThen(toList(), ts -> ts.size())));
+        List<Term> terms = NLPTokenizer.segment(document);
+        terms = terms.stream().filter(CoreStopWordDictionary::shouldInclude).collect(toList());
+        final Map<String, Integer> wordCountMap = terms.stream().collect(groupingBy(term -> term.word, collectingAndThen(toList(), List::size)));
+        List<TokenizerCountVO> tokenizerCountVOS = new LinkedList<>();
+        wordCountMap.forEach((word, count) -> {
+            TokenizerCountVO tokenizerCountVO = new TokenizerCountVO();
+            tokenizerCountVO.setWord(word);
+            tokenizerCountVO.setCount(count);
+            tokenizerCountVOS.add(tokenizerCountVO);
+        });
+        return tokenizerCountVOS.stream().sorted(Comparator.comparing(TokenizerCountVO::getCount).reversed()).collect(toList());
+    }
+
+    @ApiOperation("分词计数 词性标注 Part-of-speech Tagging pos")
+    @PostMapping("/tokenizer/nature/counts")
+    public List<TokenizerCountVO> tokenizerNatureCounts(@ApiParam("目标文档") @RequestBody String document) {
+        List<Term> terms = NLPTokenizer.segment(document);
+        terms = terms.stream().filter(CoreStopWordDictionary::shouldInclude).collect(toList());
+        final Map<String, Integer> wordCountMap = terms.stream().collect(groupingBy(term -> term.word + "|" + term.nature, collectingAndThen(toList(), List::size)));
         List<TokenizerCountVO> tokenizerCountVOS = new LinkedList<>();
         wordCountMap.forEach((word, count) -> {
             TokenizerCountVO tokenizerCountVO = new TokenizerCountVO();

@@ -13,6 +13,12 @@ import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author duhongming
+ * @email duhongming@lixiang.com
+ * @date 2023/2/13 13:44
+ * @description HanLP.segment其实是对StandardTokenizer.segment的包装
+ */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TokenizerTest {
     @Test
@@ -33,7 +39,7 @@ public class TokenizerTest {
 
     @Test
     @Order(3)
-    @DisplayName("3.NLP分词")
+    @DisplayName("3.NLP分词(建议)")
     public void testNLPTokenizer() {
         System.out.println(NLPTokenizer.segment("我新造一个词叫幻想乡你能识别并标注正确词性吗？"));
         // 注意观察下面两个“希望”的词性、两个“晚霞”的词性
